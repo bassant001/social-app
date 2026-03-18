@@ -7,11 +7,12 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import Login from './../login/Login';
 import { Bounce, toast } from "react-toastify";
+import BeatLoader from "react-spinners/BeatLoader";
 
 export default function Register() {
   // LOADING
   const [loading, setloading] = useState(false);
-  const [error, seterror] = useState(null);
+  const [error, seterror] = useState(null)
   const navigate = useNavigate();
   // ZOD Schema
   const registerSchema = zod
@@ -90,15 +91,15 @@ export default function Register() {
   }
 
   return (
-    <div className="flex justify-center mt-20">
-      <div className="bg-gradient-to-tr from-blue-100 to-blue-700 shadow-2xl p-6 rounded-3xl w-1/2">
-        <form onSubmit={handleSubmit(handleRegister)}>
+    <div className="min-h-screen bg-gray-300 flex items-center justify-center">
+      {/* <div className="bg-gradient-to-tr from-blue-100 to-blue-700 shadow-2xl p-6 rounded-3xl w-1/2"> */}
+        <form onSubmit={handleSubmit(handleRegister)}  className="bg-gray-200 mx-auto w-2xl p-10 rounded-2xl">
           {/* name */}
           <div className="my-5">
             <input
               type="text"
               placeholder="Name"
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("name")}
             />
             {errors.name && (
@@ -111,7 +112,7 @@ export default function Register() {
             <input
               type="email"
               placeholder="Email"
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("email")}
             />
             {errors.email && (
@@ -123,7 +124,7 @@ export default function Register() {
           <div className="my-5">
             <input
               type="date"
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("dateOfBirth")}
             />
             {errors.dateOfBirth && (
@@ -136,7 +137,7 @@ export default function Register() {
             <input
               type="password"
               placeholder="Password"
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("password")}
             />
             {errors.password && (
@@ -149,7 +150,7 @@ export default function Register() {
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("rePassword")}
             />
             {errors.rePassword && (
@@ -160,7 +161,7 @@ export default function Register() {
           {/* gender */}
           <div className="my-5">
             <select
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("gender")}
             >
               <option value="">Select Gender</option>
@@ -172,13 +173,13 @@ export default function Register() {
             )}
           </div>
           {/* button */}
-          <button className="p-3 w-full bg-blue-400 font-bold rounded-4xl cursor-pointer">
-            {loading ? <BeatLoader/>: "Register"}
+          <button className="p-3 w-full bg-[#1600FF] text-white font-bold rounded-2xl cursor-pointer">
+            {loading ? <BeatLoader color="white"/>: "Register"}
           </button>
           {/* error case */}
           {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
         </form>
       </div>
-    </div>
+    // </div>
   );
 }

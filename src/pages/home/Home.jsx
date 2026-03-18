@@ -1,14 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import PostCard from "../../components/postCard/PostCard";
 import { useQuery } from "@tanstack/react-query";
+import PostCreator from "../../components/PostCreator/PostCreator";
+import Loading from "../../components/loading/Loading";
+import { useDisclosure } from "@heroui/react";
 
 export default function Home() {
     // const [allPost, setAllPost] = useState(null);
     // const [isLoding, setisLoding] = useState(false);
     // const [isError, setisError] = useState(false);
     // const [msgError, setMsgError] = useState("");
-
+    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     function getAllPosts() {
         return axios.get("https://route-posts.routemisr.com/posts?sort=-createdAt", {
             headers: { token: localStorage.getItem("tkn") }
@@ -16,8 +19,8 @@ export default function Home() {
             console.log("success: ", res)
             return res.data;
         }).catch((err) => {
-            return res.data;
             console.log("fail", err.response?.data);
+            return res.data;
         })
     }
 
@@ -34,28 +37,41 @@ export default function Home() {
 
 
     if (isLoading) {
-        return <div className="bg-blue-200">
-            <div className="bg-blue-100 min-h-screen w-1/2 mx-auto flex justify-center py-80">
-                <h2 className="text-blue-950 font-bold"><span className="pageloader"></span> Loading...</h2>
-            </div>
-        </div>
+        return <>
+            <Loading />
+        </>
     }
 
     if (isError) {
-        return<div className="bg-blue-200">
-            <div className="bg-blue-100 min-h-screen w-1/2 mx-auto flex justify-center py-80">
-                <h2 className="text-blue-950 font-bold">Error has occured, Try again later...</h2>
-            </div>
-        </div>
+        return <>
+            <Error />
+        </>
     }
-    const allPost = data.data.posts
+    const allPost = data?.data?.posts || [];
+
     return (
-        <div className="bg-blue-200">
-            <div className="bg-blue-100 min-h-screen w-3xl mx-auto flex flex-col gap-5 px-4">
+
+
+        <div>
+            {/*MIDDLE  (posts) */}
+            <div className="bg-gray-300 min-h-screen w-3xl mx-auto flex flex-col gap-5 px-0">
+                <PostCreator
+                    isOpen={isOpen}
+                    onOpen={onOpen}
+                    onOpenChange={onOpenChange}
+                    onClose={onClose}
+                />
+
                 {
                     allPost?.map(post => <PostCard key={post._id} postInfo={post} />)
                 }
             </div>
+
+            
         </div>
+
+
+
+
     )
 }

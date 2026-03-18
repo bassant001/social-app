@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <>
     <MyNavbar/>
-    <Outlet/>
+    <div className=' bg-gray-300 min-h-screen w-screen pt-20 '><Outlet/></div>
     </>
   )
 }

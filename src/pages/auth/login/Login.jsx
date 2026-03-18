@@ -57,7 +57,7 @@ export default function Login() {
         navigate("/")
        })
       .catch((err) => {
-        resetUserToken();
+        setAuthUserToken();
         console.log(err.response?.data);
         seterror(err.response?.data?.message);
         toast.error(err.response?.data?.message)
@@ -66,15 +66,15 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center mt-20">
-      <div className="bg-gradient-to-tr from-blue-100 to-blue-700 shadow-2xl p-6 rounded-3xl w-1/2">
-        <form onSubmit={handleSubmit(handleLogin)}>
+    <div className="min-h-screen bg-gray-300 flex items-center justify-center">
+
+        <form onSubmit={handleSubmit(handleLogin)} className="bg-gray-200 mx-auto w-2xl p-10 rounded-2xl">
           {/* email */}
           <div className="my-5">
             <input
               type="email"
               placeholder="Email"
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("email")}
             />
             {errors.email && (
@@ -87,7 +87,7 @@ export default function Login() {
             <input
               type="password"
               placeholder="Password"
-              className="w-full p-3 border-2 rounded-4xl"
+              className="w-full p-3 border-2 rounded-2xl"
               {...register("password")}
             />
             {errors.password && (
@@ -95,13 +95,13 @@ export default function Login() {
             )}
           </div>
           {/* button */}
-          <button className="p-3 w-full bg-blue-400 font-bold rounded-4xl cursor-pointer">
-            {loading ?  <BeatLoader/>: "Login"}
+          <button className="p-3 w-full bg-[#1600FF] font-bold rounded-4xl cursor-pointer text-white">
+            {loading ?  <BeatLoader color="white"/>: "Login"}
           </button>
           {/* error case */}
           {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
         </form>
       </div>
-    </div>
+
   );
 }

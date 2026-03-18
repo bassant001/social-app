@@ -33,7 +33,7 @@ export default function ProtactedRoute({ children }) {
 
             //     </div>
             // </div>
-         <Navigate to="/login" />
+         <Navigate to="/login" replace />
         )
 
     return (

@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
+import { MdFacebook } from "react-icons/md";
 import {
   Navbar,
   NavbarBrand,
@@ -16,6 +17,8 @@ import {
 } from "@heroui/react";
 import { Link, useNavigate } from 'react-router';
 import { createdContext } from "./context/authContext";
+import { MdHome } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 export default function MyNavbar() {
   const { userToken, resetUserToken, setAuthUserToken } = useContext(createdContext);
@@ -29,7 +32,7 @@ export default function MyNavbar() {
     ] :
     [
       "Login",
-      "sing up",
+      "Register",
     ];
   const navigator = useNavigate()
 
@@ -50,7 +53,11 @@ export default function MyNavbar() {
 
   return (
     <div>
-      <Navbar position="static" className="bg-blue-300" onMenuOpenChange={setIsMenuOpen}>
+      <Navbar
+        position="static"
+        className="fixed top-0 left-0 w-full bg-white backdrop-blur-md z-50 shadow-lg"
+
+      >
         <NavbarContent>
           {/* toggle menu */}
           <NavbarMenuToggle
@@ -59,7 +66,7 @@ export default function MyNavbar() {
           />
           {/* brand */}
           <NavbarBrand>
-            <p className="font-bold text-inherit">social App</p>
+            <MdFacebook size={45} color='blue' />
           </NavbarBrand>
         </NavbarContent>
 
@@ -80,20 +87,24 @@ export default function MyNavbar() {
             </>}
 
           {isUserAuth &&
-            <>
+            <div>
               <NavbarItem>
-                <Link color="foreground" className="w-full block" to="/">
-                  Home
-                </Link>
+                <NavLink to="/">
+                  {({ isActive }) => (
+                    <MdHome
+                      size={45}
+                      className={isActive ? "text-blue-600" : "text-gray-400"} />
+                  )}
+                </NavLink>
               </NavbarItem>
-            </>
+            </div>
           }
         </NavbarContent>
 
         {isUserAuth &&
           <>
             <NavbarContent as="div" justify="end">
-              <Dropdown placement="bottom-end">
+              <Dropdown placement="bottom-end" size='30'>
                 <DropdownTrigger>
                   <Avatar
                     isBordered
