@@ -11,7 +11,7 @@ import AuthContextProvider from "./components/context/authContext";
 import Profile from './pages/profile/Profile';
 import ProtactedRoute from './components/test/ProtectedRoute';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import PostDetails from './components/postCard/postDetails';
+import PostDetails from './components/postCard/PostDetails';
 import { Offline, Online } from 'react-detect-offline';
 
 
