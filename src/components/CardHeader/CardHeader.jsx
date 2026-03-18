@@ -60,7 +60,7 @@ export default function MyCardHeader({ name, createdAt, photo, userCardID, Comme
 
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["getAllPosts"] })
-            toast.success(`${!post.bookmarked ? "save" : "unsave"} succsessfully`, { autoClose: 1000, closeOnClick: true })
+            toast.success(`${!post?.bookmarked ? "save" : "unsave"} succsessfully`, { autoClose: 1000, closeOnClick: true })
         },
         onError: () => {
             toast.error('error!', { autoClose: 1000, closeOnClick: true })
@@ -108,7 +108,7 @@ export default function MyCardHeader({ name, createdAt, photo, userCardID, Comme
 
                     <DropdownMenu aria-label="Static Actions">
                         {!isCommentCard && <DropdownItem key="save" onClick={bookmarkmutate}>
-                            {!post.bookmarked ? "save" : "unsave"} 
+                            {!post?.bookmarked ? "save" : "unsave"} 
                         </DropdownItem>}
 
                         {/* this will handle comments replies isa*/}
