@@ -2,10 +2,13 @@ import { useContext } from "react"
 import { createdContext } from "../context/authContext"
 import Login from '../../pages/auth/login/Login';
 import { Link, Navigate } from "react-router";
+import Loading from "../loading/Loading";
 //import { FaLock } from "react-icons/fa";
 
 export default function ProtactedRoute({ children }) {
-    const { userToken } = useContext(createdContext)
+    const { userToken, isLoading } = useContext(createdContext);
+    if (isLoading) return <div> <Loading/> </div>;
+
     if (!userToken)
         return (
             // <div className="flex items-center justify-center min-h-[70vh]">
