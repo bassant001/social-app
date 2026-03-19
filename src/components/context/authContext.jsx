@@ -5,27 +5,45 @@ export const createdContext = createContext();
 
 export default function AuthContextProvider({ children }) {
 
-    const [userToken, setUserToken] = useState(function () {
-        return localStorage.getItem('tkn');
-    });
 
-    const [userID, setUserID] = useState(null)
+    const [userToken, setUserToken] = useState(null);
+    const [userID, setUserID] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const token = localStorage.getItem("tkn");
+
+        if (token) {
+            setUserToken(token);
+        }
+
+        setIsLoading(false);
+    }, []);
 
     function resetUserToken() {
         localStorage.removeItem("tkn");
         setUserToken(null);
+        setUserID(null);
     }
 
-    function setAuthUserToken(tk) {
-        setUserToken(tk);
-        console.log("tk", tk);
+      function setAuthUserToken(tk) {
+        if (tk) {
+            localStorage.setItem("tkn", tk);
+            setUserToken(tk);
+        } else {
+            resetUserToken();
+        }
     }
+
     function decodeUserToken() {
-        const decodedToken = jwtDecode(userToken)
-        console.log("decoded user Token", decodedToken.user);
-        setUserID(decodedToken.user);
+        try {
+            const decodedToken = jwtDecode(userToken);
+            setUserID(decodedToken.user);
+        } catch (err) {
+            console.log("Invalid token");
+            resetUserToken(); 
+        }
     }
-
     //deadmoure => works in initial render so u ve to handle it
     useEffect(() => {
         if (userToken)
@@ -37,7 +55,7 @@ export default function AuthContextProvider({ children }) {
 
     return (
         <createdContext.Provider
-            value={{ userToken, resetUserToken, setAuthUserToken, userID }}
+            value={{ userToken, resetUserToken, setAuthUserToken, userID, isLoading }}
         >
             {children}
         </createdContext.Provider>
