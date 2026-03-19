@@ -22,7 +22,7 @@ function App() {
       element: <Layout />,
       children:
         [
-          { index: true, element: <Home /> },
+          { index: true, element: <ProtactedRoute><Home /></ProtactedRoute> },
           { path: "login", element: <Login /> },
           { path: "register", element: <Register /> },
           { path: "home", element: <ProtactedRoute><Home /></ProtactedRoute> },
