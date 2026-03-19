@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import PostCreator from "../../components/PostCreator/PostCreator";
 import Loading from "../../components/loading/Loading";
 import { useDisclosure } from "@heroui/react";
+import Error from "../../components/loading/Error";
 
 export default function Home() {
     // const [allPost, setAllPost] = useState(null);
@@ -20,7 +21,7 @@ export default function Home() {
             return res.data;
         }).catch((err) => {
             console.log("fail", err.response?.data);
-            return res.data;
+            throw err;
         })
     }
 
